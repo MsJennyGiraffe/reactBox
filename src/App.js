@@ -24,13 +24,18 @@ class App extends Component {
     this.setState( { ideas: this.state.ideas } )
   }
 
+  deleteIdea(id) {
+    let newIdeasList = this.state.ideas.filter((idea) => idea.id !== id)
+    this.setState( {ideas: newIdeasList}, () => localStorage.setItem( 'ideas', JSON.stringify(this.state.ideas) ) )
+  }
+
   render() {
 
     return (
       <div>
           <InputSubmission addIdea={ this.addIdea.bind(this) } />
 
-          <IdeasList ideas={ this.state.ideas } />
+          <IdeasList ideas={ this.state.ideas } handleDeleteIdea={ this.deleteIdea.bind(this) } />
       </div>
     )
   }
